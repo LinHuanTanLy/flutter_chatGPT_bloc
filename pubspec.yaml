@@ -1,0 +1,32 @@
+name: flutter_chatgpt
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=2.19.4 <3.0.0'
+
+dependencies:
+  dart_openai: ^1.9.1
+  envied: ^0.3.0
+  flutter_bloc: ^8.1.2
+  hydrated_bloc: ^9.1.0
+  path_provider: ^2.0.13
+  get_it: ^7.2.0
+  equatable: ^2.0.5
+  sqflite: ^2.2.6
+  uuid: ^3.0.7
+  flutter:
+    sdk: flutter
+  go_router: ^6.5.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  build_runner: ^2.0.0
+  envied_generator: ^0.3.0
+flutter:
+  uses-material-design: true
+  assets:
+   - assets/images/
