@@ -31,11 +31,18 @@ class _ChatPageState extends State<ChatPage> {
         var currState = state as MessageLoaded;
 
         ///loadSuc
-        return ListView.builder(
+        return ListView.separated(
+          padding: const EdgeInsets.only(top: 12, left: 6, right: 6,bottom: 12),
           itemBuilder: ((context, index) {
-            return ChatItem(message: currState.message[index].text);
+            return ChatItem(
+              message: currState.message[index].text,
+              isMe: currState.message[index].role == Role.user,
+            );
           }),
           itemCount: currState.message.length,
+          separatorBuilder: (BuildContext context, int index) => const SizedBox(
+            height: 12,
+          ),
         );
       } else {
         /// loadEmpty or error
@@ -85,7 +92,7 @@ class _ChatPageState extends State<ChatPage> {
 
     return Scaffold(
       appBar: AppBar(),
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xffEDEDED),
       body: messageWidget,
       bottomNavigationBar: inputWidget,
     );
