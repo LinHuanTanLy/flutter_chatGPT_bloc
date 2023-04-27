@@ -9,6 +9,7 @@ import 'package:flutter_chatgpt/repository/model/conversation.dart';
 import 'package:flutter_chatgpt/repository/model/message.dart';
 
 import 'package:flutter_chatgpt/views/comm/assets_image.dart';
+import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 
 import 'widget/chat_item.dart';
@@ -22,6 +23,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   TextEditingController textEditingController = TextEditingController();
+  ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +31,15 @@ class _ChatPageState extends State<ChatPage> {
         BlocBuilder<MessageBloc, MessageState>(builder: (context, state) {
       if (state.runtimeType == MessageLoaded) {
         var currState = state as MessageLoaded;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _scrollToNewMessage();
+        });
 
         ///loadSuc
         return ListView.separated(
-          padding: const EdgeInsets.only(top: 12, left: 6, right: 6,bottom: 12),
+          controller: scrollController,
+          padding:
+              const EdgeInsets.only(top: 12, left: 6, right: 6, bottom: 12),
           itemBuilder: ((context, index) {
             return ChatItem(
               message: currState.message[index].text,
@@ -91,11 +98,34 @@ class _ChatPageState extends State<ChatPage> {
     );
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: const Color(0xffEDEDED),
+        elevation: 0.1,
+        leading: InkWell(
+          onTap: context.pop,
+          child: Container(
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(left: 12),
+            child: const AssetsImageWidget(
+              assets: 'back.png',
+              height: 20,
+              fit: BoxFit.cover,
+              alignment: Alignment.center,
+            ),
+          ),
+        ),
+      ),
       backgroundColor: const Color(0xffEDEDED),
-      body: messageWidget,
-      bottomNavigationBar: inputWidget,
+      body: Column(
+        children: [Expanded(child: messageWidget), inputWidget],
+      ),
     );
+  }
+
+  void _scrollToNewMessage() {
+    if (scrollController.hasClients) {
+      scrollController.jumpTo(scrollController.position.maxScrollExtent);
+    }
   }
 
   void _sendMessage() {
@@ -109,6 +139,7 @@ class _ChatPageState extends State<ChatPage> {
       final newMessage = Message(
           conversationId: conversationUuid, text: message, role: Role.user);
       context.read<MessageBloc>().add(SendMessageEvent(newMessage));
+      textEditingController.text = "";
     }
   }
 
