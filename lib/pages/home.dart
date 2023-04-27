@@ -29,6 +29,12 @@ class _HomePageState extends State<HomePage> {
             },
             child: const Text('conversation'),
           ),
+          MaterialButton(
+            onPressed: () {
+              context.push(RouterKey.demoPage);
+            },
+            child: const Text('demo'),
+          ),
         ]));
   }
 }

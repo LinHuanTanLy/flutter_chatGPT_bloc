@@ -9,10 +9,6 @@ environment:
 dependencies:
   dart_openai: ^1.9.1
   envied: ^0.3.0
-  flutter_bloc: ^8.1.2
-  hydrated_bloc: ^9.1.0
-  path_provider: ^2.0.13
-  get_it: ^7.2.0
   equatable: ^2.0.5
   sqflite: ^2.2.6
   uuid: ^3.0.7
@@ -22,6 +18,8 @@ dependencies:
   bubble_box: ^0.5.3
   flutter_markdown: ^0.6.14
   flutter_highlight: ^0.7.0
+  flutter_hooks: ^0.18.0
+  hooks_riverpod: ^2.3.6
 dev_dependencies:
   flutter_test:
     sdk: flutter
