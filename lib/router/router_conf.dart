@@ -1,3 +1,4 @@
+import 'package:flutter_chatgpt/pages/chat/chat.dart';
 import 'package:flutter_chatgpt/pages/demo/demo_page.dart';
 import 'package:flutter_chatgpt/pages/home.dart';
 import 'package:go_router/go_router.dart';
@@ -18,6 +19,8 @@ class RouterConf {
         GoRoute(
             path: RouterKey.home,
             builder: (context, state) => const HomePage()),
+        GoRoute(
+            path: RouterKey.chat, builder: (context, state) => const ChatPage()),
         GoRoute(
             path: RouterKey.demoPage,
             builder: (context, state) => const DemoPage()),
